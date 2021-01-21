@@ -8,7 +8,6 @@ import AuthService from './services/auth.service';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
-import User from './components/User';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -58,7 +57,7 @@ const App = () => {
         )}
       </nav>
 
-      <div className="container mt-3">
+      <div className="container mt-3 w-50">
         <Switch>
           <Route exact path={['/', '/home']} component={Home} />
           <Route exact path={'/login'} component={Login} />

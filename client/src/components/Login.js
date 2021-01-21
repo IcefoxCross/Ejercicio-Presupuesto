@@ -43,9 +43,15 @@ const Login = (props) => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.login(username, password).then(() => {
-                props.history.push('/home');
-                window.location.reload();
+            AuthService.login(username, password).then((response) => {
+                const user = AuthService.getCurrentUser();
+                if (user) {
+                    props.history.push('/home');
+                    window.location.reload();
+                } else {
+                    setLoading(false);
+                    setMessage('Error! Check your username and password are correct.');
+                }
             }, (error) => {
                 const resMessage = (error.response && error.response.data && error.response.data.message)
                     || error.message || error.toString();

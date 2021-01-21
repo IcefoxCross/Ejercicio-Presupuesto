@@ -7,6 +7,7 @@ const User = () => {
 
     useEffect(() => {
         UserService.getUserBoard().then((response) => {
+            console.log(response.data);
             setContent(response.data);
         }, (error) => {
             const _content = (error.response && error.response.data && error.response.data.message)
