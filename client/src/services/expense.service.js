@@ -3,8 +3,8 @@ import authHeader from './auth-header';
 
 const API_URL = "http://localhost:8080/api/expense";
 
-const createExpense = () => {
-    return axios.post(API_URL);
+const createExpense = (concept, amount, date, type, userId) => {
+    return axios.post(API_URL, {concept, amount, date, type, userId});
 };
 
 const getExpenses = () => {

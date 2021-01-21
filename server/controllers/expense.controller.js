@@ -20,6 +20,6 @@ exports.createExpense = (req, res) => {
         type: req.body.type,
         userId: req.body.userId
     }).then(() => {
-        res.send({message: 'Expense was created successfully!'});
+        res.send({message: 'Transaction was created successfully!'});
     }).catch(err => res.status(500).send({message: err.message}));
 };
