@@ -20,7 +20,8 @@ exports.signup = (req, res) => {
 
 exports.signin = (req, res) => {
     User.findOne({
-        where: {username: req.body.username}
+        where: {username: req.body.username},
+        include: ['expenses']
     }).then(user => {
         if (!user) {
             return res.status(404).send({message: 'User not found.'});
@@ -42,6 +43,7 @@ exports.signin = (req, res) => {
             id: user.id,
             username: user.username,
             email: user.email,
+            expenses: user.expenses,
             accessToken: token
         });
     }).catch(err => res.status(500).send({message: err.message}));

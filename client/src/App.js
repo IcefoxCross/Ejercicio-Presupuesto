@@ -28,7 +28,7 @@ const App = () => {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={'/'} className="navbar-brand">Icefox</Link>
+        <Link to={'/'} className="navbar-brand">Expenses Manager</Link>
         <div className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link to={'/home'} className="nav-link">Home</Link>
@@ -43,7 +43,7 @@ const App = () => {
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
-              <a href='/login' className="nav-link" onClick={logOut}>LogOut</a>
+              <a href='/login' className="nav-link" onClick={logOut}>Log Out</a>
             </li>
           </div>
         ) : (
@@ -63,7 +63,6 @@ const App = () => {
           <Route exact path={['/', '/home']} component={Home} />
           <Route exact path={'/login'} component={Login} />
           <Route exact path={'/register'} component={Register} />
-          <Route path={'/user'} component={User} />
         </Switch>
       </div>
     </div>

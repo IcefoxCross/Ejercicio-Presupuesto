@@ -14,12 +14,33 @@ app.use(express.json());
 // DB
 const db = require('./models');
 
+/*const bcrypt = require('bcryptjs');
+const User = db.user;
+const Expense = db.expense;*/
+
 /// prod
 // db.sequelize.sync();
 /// dev
 db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and resync DB');
+    //initial();
 }).catch(err => console.log(err));
+
+function initial() {
+    User.create({
+        username: "user",
+        email: "user@email.com",
+        password: bcrypt.hashSync("123456", 8)
+    }).then(user => {
+        Expense.create({
+            concept: "food",
+            amount: 100,
+            date: new Date(),
+            type: "expense",
+            userId: user.id
+        });
+    });
+}
 
 // Routes
 app.get('/', (req,res) => {
