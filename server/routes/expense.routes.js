@@ -9,4 +9,6 @@ module.exports = function(app) {
     app.get('/api/expense/:id', controller.getExpense);
 
     app.put('/api/expense/:id', controller.updateExpense);
+
+    app.delete('/api/expense/:id', controller.deleteExpense);
 };

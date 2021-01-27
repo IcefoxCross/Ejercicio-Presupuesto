@@ -10,6 +10,14 @@ const Home = () => {
     const [expenses, setExpenses] = useState([]);
     const user = AuthService.getCurrentUser();
 
+    const deleteExpense = (id) => {
+        if (window.confirm(`Delete Transaction?`)) {
+            ExpenseService.deleteExpense(id).then(res => {
+              setExpenses(expenses.filter(e => e.id !== id));
+            });
+        }
+    };
+
     useEffect(() => {
         if (user) {
             ExpenseService.getExpenses(user.id).then((response) => {
@@ -31,7 +39,7 @@ const Home = () => {
     if (user) {
         return (
             <div className="container">
-                <Balance username={user.username} expenses={expenses} />
+                <Balance username={user.username} expenses={expenses} deleteExpense={deleteExpense} />
             </div>
         )
     } else {

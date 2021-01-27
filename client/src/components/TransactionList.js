@@ -2,7 +2,7 @@ import React from 'react';
 
 import Transaction from './Transaction';
 
-const TransactionList = ({expenses}) => {
+const TransactionList = ({expenses, deleteExpense}) => {
     return (
         <>
             <table className="table">
@@ -14,7 +14,7 @@ const TransactionList = ({expenses}) => {
                 </thead>
                 <tbody>
                     {expenses.map(transaction => (
-                        <Transaction key={transaction.id} transaction={transaction} />
+                        <Transaction key={transaction.id} transaction={transaction} deleteExpense={deleteExpense} />
                     ))}
                 </tbody>
             </table>

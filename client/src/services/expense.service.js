@@ -18,7 +18,11 @@ const updateExpense = (id, concept, amount, date) => {
     return axios.put(API_URL + `/${id}`, {concept, amount, date});
 };
 
+const deleteExpense = (id) => {
+    return axios.delete(`${API_URL}/${id}`);
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    createExpense, getExpenses, getExpense, updateExpense
+    createExpense, getExpenses, getExpense, updateExpense, deleteExpense
 };

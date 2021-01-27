@@ -42,4 +42,11 @@ exports.updateExpense = (req, res) => {
     }).then(() => {
         res.send({message: 'Transaction was updated successfully!'});
     }).catch(err => res.status(500).send({message: err.message}));
-}
+};
+
+exports.deleteExpense = (req, res) => {
+    Expense.destroy({where: {id: req.params.id}
+    }).then(() => {
+        res.send({message: 'Transaction was deleted successfully!'});
+    }).catch(err => res.status(500).send({message: err.message}));
+};
