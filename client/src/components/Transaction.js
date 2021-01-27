@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { numberWithCommas } from '../utils/format';
 
@@ -11,6 +12,10 @@ const Transaction = ({transaction}) => {
             <td>{transaction.concept}</td>
             <td>{date}</td>
             <td className={transaction.type === 'Expense' ? 'minus' : 'plus'}>{sign} ${numberWithCommas(Math.abs(transaction.amount))}</td>
+            <td>
+                <Link to={`/edit/${transaction.id}`}><button className="btn btn-success mr-2"><i className="fa fa-pencil"></i> Edit</button></Link>
+                <button className="btn btn-danger"><i className="fa fa-trash"></i> Delete</button>
+            </td>
         </tr>
     )
 }

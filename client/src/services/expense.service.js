@@ -7,10 +7,18 @@ const createExpense = (concept, amount, date, type, userId) => {
 };
 
 const getExpenses = (userId) => {
-    return axios.get(API_URL + `/${userId}`);
+    return axios.get(API_URL + `s/${userId}`);
+};
+
+const getExpense = (id) => {
+    return axios.get(API_URL + `/${id}`);
+};
+
+const updateExpense = (id, concept, amount, date) => {
+    return axios.put(API_URL + `/${id}`, {concept, amount, date});
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-    createExpense, getExpenses
+    createExpense, getExpenses, getExpense, updateExpense
 };

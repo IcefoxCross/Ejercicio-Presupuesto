@@ -4,5 +4,9 @@ module.exports = function(app) {
 
     app.post("/api/expense", controller.createExpense);
 
-    app.get('/api/expense/:id', controller.getExpenses);
+    app.get('/api/expenses/:id', controller.getExpenses);
+
+    app.get('/api/expense/:id', controller.getExpense);
+
+    app.put('/api/expense/:id', controller.updateExpense);
 };

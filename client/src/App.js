@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
 import AddTransaction from './components/AddTransaction';
+import EditTransaction from './components/EditTransaction';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -64,7 +65,10 @@ const App = () => {
           <Route exact path={'/login'} component={Login} />
           <Route exact path={'/register'} component={Register} />
           {currentUser && (
+            <>
             <Route exact path={'/new'} component={AddTransaction} />
+            <Route path={'/edit/:id'} component={EditTransaction} />
+            </>
           )}
         </Switch>
       </div>

@@ -1,11 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Form from 'react-validation/build/form';
 import Input from 'react-validation/build/input';
 import CheckButton from 'react-validation/build/button';
 import DatePicker from 'react-date-picker';
 
 import ExpenseService from '../services/expense.service';
-import AuthService from '../services/auth.service';
 
 const required = value => {
     if (!value) {
@@ -37,11 +36,10 @@ const validAmount = (value) => {
     }
 }
 
-const AddTransaction = (props) => {
+const EditTransaction = (props) => {
     const [concept, setConcept] = useState('');
     const [amount, setAmount] = useState(0);
     const [date, setDate] = useState(new Date());
-    const [type, setType] = useState('Expense');
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -56,10 +54,6 @@ const AddTransaction = (props) => {
         setAmount(e.target.value);
     };
 
-    const onChangeType = (e) => {
-        setType(e.target.value);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -69,8 +63,7 @@ const AddTransaction = (props) => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            const user = AuthService.getCurrentUser();
-            ExpenseService.createExpense(concept, amount, date, type, user.id).then( (response) => {
+            ExpenseService.updateExpense(props.match.params.id, concept, amount, date).then( (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
                 props.history.goBack();
@@ -82,6 +75,21 @@ const AddTransaction = (props) => {
             })
         }
     };
+
+    useEffect(() => {
+        ExpenseService.getExpense(props.match.params.id)
+            .then( (response) => {
+                const expense = response.data;
+                setConcept(expense.concept);
+                setAmount(expense.amount);
+                setDate(new Date(expense.date));
+            }, (error) => {
+                const resMessage = (error.response && error.response.data && error.response.data.message)
+                    || error.message || error.toString();
+                setSuccessful(false);
+                setMessage(resMessage);
+            })
+    }, [])
 
     return (
         <div className="col-md-12">
@@ -107,15 +115,7 @@ const AddTransaction = (props) => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="type">Operation Type</label>
-                                <select className="form-control" value={type} onChange={onChangeType}>
-                                    <option value="Expense">Expense</option>
-                                    <option value="Income">Income</option>
-                                </select>
-                            </div>
-
-                            <div className="form-group">
-                                <button className="btn btn-primary btn-block">Add Transaction</button>
+                                <button className="btn btn-primary btn-block">Update Transaction</button>
                             </div>
                         </div>
                     )}
@@ -135,4 +135,4 @@ const AddTransaction = (props) => {
     )
 };
 
-export default AddTransaction;
+export default EditTransaction;

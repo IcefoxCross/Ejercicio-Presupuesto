@@ -17,6 +17,14 @@ exports.getExpenses = (req, res) => {
     }).catch(err => res.status(500).send({message: err.message}));*/
 };
 
+exports.getExpense = (req, res) => {
+    const id = req.params.id;
+    Expense.findByPk(id)
+        .then(expense => {
+            res.status(200).send(expense);
+    }).catch(err => res.status(500).send({message: err.message}));
+};
+
 exports.createExpense = (req, res) => {
     Expense.create({
         concept: req.body.concept,
@@ -28,3 +36,10 @@ exports.createExpense = (req, res) => {
         res.send({message: 'Transaction was created successfully!'});
     }).catch(err => res.status(500).send({message: err.message}));
 };
+
+exports.updateExpense = (req, res) => {
+    Expense.update(req.body, {where: {id: req.params.id}
+    }).then(() => {
+        res.send({message: 'Transaction was updated successfully!'});
+    }).catch(err => res.status(500).send({message: err.message}));
+}

@@ -10,6 +10,7 @@ const TransactionList = ({expenses}) => {
                     <th>Concept</th>
                     <th>Date</th>
                     <th>Amount</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     {expenses.map(transaction => (
