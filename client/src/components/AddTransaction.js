@@ -21,16 +21,16 @@ const validAmount = (value) => {
     if (value <= 0) {
         return (
             <div className="alert alert-danger" role="alert">
-                THe amount must be biggen than 0.
+                The amount must be bigger than 0.
             </div>
         )
     }
 }
 
-const AddTransaction = () => {
+const AddTransaction = (props) => {
     const [concept, setConcept] = useState('');
     const [amount, setAmount] = useState(0);
-    const [date, setDate] = useState(undefined);
+    const [date, setDate] = useState(new Date());
     const [type, setType] = useState('Expense');
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState('');
@@ -63,6 +63,7 @@ const AddTransaction = () => {
             ExpenseService.createExpense(concept, amount, date, type, user.id).then( (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
+                props.history.goBack();
             }, (error) => {
                 const resMessage = (error.response && error.response.data && error.response.data.message)
                     || error.message || error.toString();
@@ -91,8 +92,8 @@ const AddTransaction = () => {
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="date">Password</label>
-                                <DatePicker value={date} onChange={setDate} validations={[required]} />
+                                <label htmlFor="date">Date</label>
+                                <DatePicker value={date} onChange={setDate} required={true} />
                             </div>
 
                             <div className="form-group">

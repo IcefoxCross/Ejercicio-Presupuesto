@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import TransactionList from './TransactionList';
 
-const Balance = ({expenses}) => {
+const Balance = ({username, expenses}) => {
 
     const amounts = expenses.map(transaction => {
-        if (transaction.type === "expense") {
+        if (transaction.type === "Expense") {
             return transaction.amount * -1;
         } else {
             return transaction.amount;
@@ -16,9 +17,10 @@ const Balance = ({expenses}) => {
     return (
         <div className="container">
             <header className="jumbotron text-center">
+                <h3>{username}</h3>
                 <h2>Total Balance: <span className={total < 0 ? 'minus' : 'plus'}>${total}</span></h2>
+                <Link to={'/new'}><button className="btn btn-info btn-block">Add Transaction</button></Link>
             </header>
-                        
             <TransactionList expenses={expenses} />
         </div>
     )

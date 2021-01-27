@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import UserService from '../services/user.service';
 import AuthService from '../services/auth.service';
+import ExpenseService from '../services/expense.service';
 
 import Balance from './Balance';
 
-const Home = ({currentUser}) => {
+const Home = () => {
     const [content, setContent] = useState(undefined);
+    const [expenses, setExpenses] = useState([]);
     const user = AuthService.getCurrentUser();
 
     useEffect(() => {
         if (user) {
-            UserService.getUserBoard().then((response) => {
-                setContent(response.data);
+            ExpenseService.getExpenses(user.id).then((response) => {
+                setExpenses(response.data);
             }, (error) => {
                 const _content = (error.response && error.response.data) || error.message || error.toString();
                 setContent(_content);
@@ -29,7 +31,7 @@ const Home = ({currentUser}) => {
     if (user) {
         return (
             <div className="container">
-                <Balance expenses={user.expenses} />
+                <Balance username={user.username} expenses={expenses} />
             </div>
         )
     } else {

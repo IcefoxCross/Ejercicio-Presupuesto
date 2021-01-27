@@ -3,13 +3,18 @@ const Expense = db.expense;
 const User = db.user;
 
 exports.getExpenses = (req, res) => {
-    User.findByPk(req.body.userId, {include: ['expenses']})
+    const id = req.params.id;
+    Expense.findAll({where: {userId: id}})
+        .then(expenses => {
+            res.status(200).send(expenses);
+    }).catch(err => res.status(500).send({message: err.message}));
+    /*User.findByPk(req.body.userId, {include: ['expenses']})
         .then(user => {
             if (!user) {
                 return res.status(404).send({message: 'User not found.'});
             }
             res.status(200).send(user.expenses);
-    }).catch(err => res.status(500).send({message: err.message}));
+    }).catch(err => res.status(500).send({message: err.message}));*/
 };
 
 exports.createExpense = (req, res) => {

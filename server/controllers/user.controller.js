@@ -1,5 +1,5 @@
 exports.allAccess = (req, res) => {
-    res.status(200).send('Public Content.');
+    res.status(200).send('Welcome! Please Register or Login to start using the App.');
 };
 
 exports.userBoard = (req, res) => {

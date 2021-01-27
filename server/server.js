@@ -19,14 +19,14 @@ const User = db.user;
 const Expense = db.expense;
 
 /// prod
-// db.sequelize.sync();
+db.sequelize.sync();
 /// dev
-db.sequelize.sync({force: true}).then(() => {
+/*db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and resync DB');
-    initial();
-}).catch(err => console.log(err));
+    initialize();
+}).catch(err => console.log(err));*/
 
-function initial() {
+function initialize() {
     User.create({
         username: "user1",
         email: "user@mail.com",
@@ -54,6 +54,7 @@ app.get('/', (req,res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/expense.routes')(app);
 
 // Server Init
 const PORT = process.env.PORT || 8080;
