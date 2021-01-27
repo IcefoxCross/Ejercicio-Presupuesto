@@ -21,7 +21,8 @@ const Home = () => {
     useEffect(() => {
         if (user) {
             ExpenseService.getExpenses(user.id).then((response) => {
-                setExpenses(response.data);
+                const sorted_expenses = response.data.sort((a,b) => b - a);
+                setExpenses(sorted_expenses.slice(0, 10));
             }, (error) => {
                 const _content = (error.response && error.response.data) || error.message || error.toString();
                 setContent(_content);
