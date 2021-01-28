@@ -8,6 +8,7 @@ import AuthService from './services/auth.service';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
+import AllTransactions from './components/AllTransactions';
 import AddTransaction from './components/AddTransaction';
 import EditTransaction from './components/EditTransaction';
 
@@ -36,7 +37,7 @@ const App = () => {
           </li>
           {currentUser && (
             <li className="nav-item">
-              <Link to={'/user'} className="nav-link">User</Link>
+              <Link to={'/all'} className="nav-link">All Transactions</Link>
             </li>
           )}
         </div>
@@ -66,6 +67,7 @@ const App = () => {
           <Route exact path={'/register'} component={Register} />
           {currentUser && (
             <>
+            <Route exact path={'/all'} component={AllTransactions} />
             <Route exact path={'/new'} component={AddTransaction} />
             <Route path={'/edit/:id'} component={EditTransaction} />
             </>

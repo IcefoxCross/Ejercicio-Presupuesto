@@ -19,8 +19,9 @@ const Balance = ({username, expenses, deleteExpense}) => {
             <header className="jumbotron text-center">
                 <h3>{username}</h3>
                 <h2>Total Balance: <span className={total < 0 ? 'minus' : 'plus'}>${total}</span></h2>
-                <Link to={'/new'}><button className="btn btn-info btn-block">Add Transaction</button></Link>
+                <Link to={'/new'}><button className="btn btn-info mt-3">Add Transaction</button></Link>
             </header>
+            <h3 className="text-center">Latest Transactions</h3>
             <TransactionList expenses={expenses} deleteExpense={deleteExpense} />
         </div>
     )

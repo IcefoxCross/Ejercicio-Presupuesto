@@ -9,12 +9,14 @@ const Transaction = ({transaction, deleteExpense}) => {
 
     return (
         <tr>
-            <td>{transaction.concept}</td>
-            <td>{date}</td>
-            <td className={transaction.type === 'Expense' ? 'minus' : 'plus'}>{sign} ${numberWithCommas(Math.abs(transaction.amount))}</td>
+            <td className="align-middle">{transaction.concept}</td>
+            <td className="align-middle">{date}</td>
+            <td className={transaction.type === 'Expense' ? 'minus align-middle' : 'plus align-middle'}>{sign} ${numberWithCommas(Math.abs(transaction.amount))}</td>
             <td>
-                <Link to={`/edit/${transaction.id}`}><button className="btn btn-success mr-2"><i className="fa fa-pencil"></i> Edit</button></Link>
-                <button className="btn btn-danger" onClick={() => deleteExpense(transaction.id)}><i className="fa fa-trash"></i> Delete</button>
+                <div className="d-flex flex-row">
+                    <Link to={`/edit/${transaction.id}`}><button className="btn btn-success mr-2"><i className="fa fa-pencil"></i></button></Link>
+                    <button className="btn btn-danger" onClick={() => deleteExpense(transaction.id)}><i className="fa fa-trash"></i></button>
+                </div>
             </td>
         </tr>
     )
